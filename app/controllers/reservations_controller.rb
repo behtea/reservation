@@ -3,12 +3,12 @@ class ReservationsController < ApplicationController
 
   def index
     reservations = @restaurant.reservations
-    json_response(reservations)    
+    json_response(reservations.collect(&:json_formated))    
   end
 
   def show
     reservation = @restaurant.reservations.find(params[:id])
-    json_response(reservation)    
+    json_response(reservation.json_formated)    
   end  
 
   def create
@@ -25,7 +25,7 @@ class ReservationsController < ApplicationController
   private
   
   def reservation_params
-    params.permit(:restaurant_id, :guest_id, :table_id, :guest_number, :booking_time)
+    params.permit(:id, :restaurant_id, :guest_id, :table_id, :guest_number, :booking_time)
   end  
 
   def set_restaurant

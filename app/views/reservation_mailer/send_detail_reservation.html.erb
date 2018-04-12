@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi <%= @reservation.guest.name %></p>    
+    <p>Here is your reservation detail</p>
+    <p>Restaurant: <%= @reservation.restaurant.name %></p>
+    <p>Table: <%= @reservation.table.name %></p>
+    <p>Guest Number: <%= @reservation.guest_number %></p>
+    <p>Booking Time: <%= @reservation.booking_time %></p>    
+    <br>
+    <p>Thanks for making reservation</p>
+  </body>
+</html>
