@@ -17,12 +17,12 @@ module Reserveapp
 
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      :user_name => '360074d39821d7',
-      :password => '6ac0e3d88006bb',
+      :user_name => '51d7ee73f92d63',
+      :password => 'b7f4fc987f20cc',
       :address => 'smtp.mailtrap.io',
       :domain => 'smtp.mailtrap.io',
       :port => '2525',
       :authentication => :cram_md5
-    }    
+    }  
   end
 end
