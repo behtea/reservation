@@ -22,13 +22,8 @@ class Reservation < ApplicationRecord
   validates :guest_id, :restaurant_id, :table_id, :guest_number, :booking_time, presence: true
   validate :check_available_shift, :check_table_availability, :check_guest_number
 
-  # before_update :get_old_reservation
-
   after_create :notifier_new_reservation
   after_update :notifier_update_reservation
-
-  # def get_old_reservation
-  # end
 
   def notifier_new_reservation
     ReservationMailer.send_detail_reservation(self).deliver_now
@@ -58,7 +53,7 @@ class Reservation < ApplicationRecord
           break;
         end
       else 
-        if reserve.id != id
+        if reserve.id != id && is_not_available
           errors[:base] << "table not available"
           break;
         end        
