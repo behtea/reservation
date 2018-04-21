@@ -88,35 +88,114 @@ class ReservationTest < ActiveSupport::TestCase
     assert_match(/Booking Time: 2018-04-08 10:00/, update_reservation_email.body.to_s)         
   end        
 
-  # test "guest can't reserve table because no available shift" do
-  #   assert true
-  # end      
+  test "guest can't reserve table because no available shift" do
+    guest = guests(:john)
+    restaurant = restaurants(:restaurantone)
+    table = tables(:restaurantonetableone)
+    
+    reservation = restaurant.reservations.create({
+      guest_id: guest.id,
+      table_id: table.id,
+      guest_number: 6,
+      booking_time: "2018-04-16 13:00"
+    })
 
-  # test "guest can't reserve table because lack of guest number" do
-  #   assert true
-  # end  
+    assert_equal "there is no available shift", reservation.errors.messages[:base].first
+    assert_equal 2, Reservation.count
+    
+  end      
 
-  # test "guest can't reserve table because excess of guest number" do
-  #   assert true
-  # end    
+  test "guest can't reserve table because lack of guest number" do
+    guest = guests(:jane)
+    restaurant = restaurants(:restaurantone)
+    table = tables(:restaurantonetableone)
+    
+    reservation = restaurant.reservations.create({
+      guest_id: guest.id,
+      table_id: table.id,
+      guest_number: 2,
+      booking_time: "2018-04-16 10:00"
+    })
 
-  # test "guest can't reserve table because booking time table is same with other" do
-  #   assert true
-  # end      
+    assert_equal "guest number invalid", reservation.errors.messages[:base].first
+    assert_equal 2, Reservation.count
+  end  
 
-  # test "guest can't reserve table because booking time table is overlap pt 1" do
-  #   assert true
-  # end    
+  test "guest can't reserve table because excess of guest number" do
+    guest = guests(:jane)
+    restaurant = restaurants(:restaurantone)
+    table = tables(:restaurantonetabletwo)
+    
+    reservation = restaurant.reservations.create({
+      guest_id: guest.id,
+      table_id: table.id,
+      guest_number: 6,
+      booking_time: "2018-04-16 10:00"
+    })
 
-  # test "guest can't reserve table because booking time table is overlap pt 2" do
-  #   assert true
-  # end      
+    assert_equal "guest number invalid", reservation.errors.messages[:base].first
+    assert_equal 2, Reservation.count
+  end    
 
-  # test "guest can't update reservation because no shift" do
-  #   assert true
-  # end  
+  test "guest can't reserve table because booking time table is same with other" do
+    guest = guests(:jane)
+    restaurant = restaurants(:restaurantone)
+    table = tables(:restaurantonetableone)
+    
+    reservation = restaurant.reservations.create({
+      guest_id: guest.id,
+      table_id: table.id,
+      guest_number: 2,
+      booking_time: "2018-04-08 09:00:00"
+    })
 
-  # test "guest can't update reservation because overlap" do
-  #   assert true
-  # end    
+    assert_equal "table not available", reservation.errors.messages[:base].first
+    assert_equal 2, Reservation.count
+  end      
+
+  test "guest can't reserve table because booking time table is overlap" do
+    guest = guests(:jane)
+    restaurant = restaurants(:restaurantone)
+    table = tables(:restaurantonetableone)
+    
+    reservation = restaurant.reservations.create({
+      guest_id: guest.id,
+      table_id: table.id,
+      guest_number: 2,
+      booking_time: "2018-04-08 09:30:00"
+    })
+
+    assert_equal "table not available", reservation.errors.messages[:base].first
+    assert_equal 2, Reservation.count
+  end    
+
+  test "guest can't update reservation because no shift" do
+    guest = guests(:jane)
+    table = tables(:restaurantonetablethree)
+    guest_number = 2
+    
+    reservation = reservations(:reservationsampletwo)
+    reservation.update({
+      table_id: table.id,
+      guest_number: guest_number,
+      booking_time: "2018-04-08 13:00:00",
+    })
+
+    assert_equal "there is no available shift", reservation.errors.messages[:base].first    
+  end  
+
+  test "guest can't update reservation because overlap" do
+    guest = guests(:jane)
+    table = tables(:restaurantonetableone)
+    guest_number = 2
+    
+    reservation = reservations(:reservationsampletwo)
+    reservation.update({
+      table_id: table.id,
+      guest_number: guest_number,
+      booking_time: "2018-04-08 09:30:00",
+    })
+
+    assert_equal "table not available", reservation.errors.messages[:base].first    
+  end    
 end
