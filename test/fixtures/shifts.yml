@@ -1,13 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  restaurant_id: 1
-  name: MyString
-  start_at: 2018-04-08 21:52:07
-  end_at: 2018-04-08 21:52:07
+restaurantoneshiftone:
+  restaurant: restaurantone
+  name: Morning Shift
+  start_at: 2018-04-08 07:00:00
+  end_at: 2018-04-08 11:00:00
 
-two:
-  restaurant_id: 1
-  name: MyString
-  start_at: 2018-04-08 21:52:07
-  end_at: 2018-04-08 21:52:07
+restaurantoneshifttwo:
+  restaurant: restaurantone
+  name: Night Shift
+  start_at: 2018-04-08 18:00:00
+  end_at: 2018-04-08 23:00:00
+
+restaurantwoshiftone:
+  restaurant: restaurantwo
+  name: Daylight Shift
+  start_at: 2018-04-08 11:00:00
+  end_at: 2018-04-08 17:00:00
+
+restaurantwoshifttwo:
+  restaurant: restaurantwo
+  name: Afternoon Shift
+  start_at: 2018-04-08 18:00:00
+  end_at: 2018-04-08 23:00:00

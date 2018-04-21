@@ -1,13 +1,37 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  restaurant_id: 1
-  name: MyString
-  minimun_guest: 1
-  maximum_guest: 1
+restaurantonetableone:
+  restaurant: restaurantone
+  name: Table One of Restaurant One
+  minimum_guest: 4
+  maximum_guest: 8
 
-two:
-  restaurant_id: 1
-  name: MyString
-  minimun_guest: 1
-  maximum_guest: 1
+restaurantonetabletwo:
+  restaurant: restaurantone
+  name: Table Two of Restaurant One
+  minimum_guest: 2
+  maximum_guest: 4
+
+restaurantonetablethree:
+  restaurant: restaurantone
+  name: Table Three of Restaurant One
+  minimum_guest: 1
+  maximum_guest: 2
+
+restauranttwotableone:
+  restaurant: restauranttwo
+  name: Table One of Restaurant Two
+  minimum_guest: 1
+  maximum_guest: 2
+
+restauranttwotabletwo:
+  restaurant: restauranttwo
+  name: Table Two of Restaurant Two
+  minimum_guest: 3
+  maximum_guest: 9
+
+restauranttwotablethree:
+  restaurant: restauranttwo
+  name: Table Three of Restaurant Two
+  minimum_guest: 5
+  maximum_guest: 10

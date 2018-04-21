@@ -44,7 +44,7 @@ class Reservation < ApplicationRecord
     is_not_available = nil
     reserves = Reservation.where(restaurant_id: restaurant_id, table_id: table_id)
     reserves.each do |reserve|
-      reserve_gap = reserve.booking_time + 1.hour # i set one hour for the gap      
+      reserve_gap = reserve.booking_time + 1.hour
       is_not_available = reserve.booking_time <= booking_time && booking_time <= reserve_gap      
 
       if new_record?        
